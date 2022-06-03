@@ -11,3 +11,8 @@
     align-items: center;
     padding: 10px;
 }
+
+.tachado{
+    text-decoration:line-through;
+    color: rgb(162, 162, 162);
+  }

@@ -1,7 +1,8 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
-    taskAdded,
+    taskAdded, 
+    taskUpdated,
 } from "./TasksSlice";
 import { nanoid } from "@reduxjs/toolkit";
 
@@ -10,34 +11,34 @@ import { TextField, Button, Box } from "@mui/material";
 import "./styles.css";
 
 
-const TasksForm = () => {
-
-    const [ title, setTitle ] = React.useState("")
-    const [ content, setContent ] = React.useState("")
+const TasksForm = ({ title, setTitle, content, setContent, currentId, setCurrentId }) => {
     
-    const tasks = useSelector((state) => state.tasks) 
-    //useSelector puede utilizarse si se quiere agregar otras caracteristicas a la app como editor de task.
     const dispatch = useDispatch()
 
     const addNewtask = () => {
-        if ( title && content ) {
-            dispatch(taskAdded({ title, content, id: nanoid() }));
-            setTitle("");
-            setContent("");
-        }
+        dispatch(taskAdded({ title, content, completed: false, id: nanoid() }));
+        setTitle("");
+        setContent("");
+    }
+
+    const updatedTask = () => {
+        dispatch(taskUpdated({ title, content, completed: false, id: currentId }))
+        setTitle("");
+        setContent("");
+        setCurrentId("");
     }
 
     return (
         <Box className="box" sx={{ width: 300 }}>
             <TextField 
-                label="Título:"
+                label="Title:"
                 value={title}
                 onChange={e => setTitle(e.target.value)}
                 fullWidth    
             />
             <br />
             <TextField 
-                label="Contenido:"
+                label="Content:"
                 value={content}
                 onChange={e => setContent(e.target.value)}
                 multiline    
@@ -45,8 +46,12 @@ const TasksForm = () => {
                 fullWidth    
             />
             <br />
-            <Button className="buttonAdd" onClick={addNewtask} variant="contained">Agregar</Button>
-            {/* AHORA TOCA AGREGAR UN BOTON QUE AGREGE TASKS AL LISTADO */}
+            <Button 
+                className="buttonAdd" 
+                onClick={currentId ? updatedTask : addNewtask}
+                variant="contained">
+                    {currentId ? "Update" : "Add"}
+            </Button>
         </Box>
     )
 }

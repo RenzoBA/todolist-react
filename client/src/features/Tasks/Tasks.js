@@ -1,20 +1,45 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { Typography, Container, Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
-import { ExpandMore } from "@mui/icons-material";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  taskCompleted,
+  taskDeleted,
+} from "./TasksSlice";
 
-const Tasks = () => {
+import { Typography, Container, Accordion, AccordionSummary, AccordionDetails, Checkbox, IconButton } from "@mui/material";
+import { Delete, Edit } from "@mui/icons-material";
+
+const Tasks = ({ setTitle, setContent, setCurrentId }) => {
 
   const tasks = useSelector((state) => state.tasks);
 
+  const dispatch = useDispatch();
+
   const renderTasks = tasks.map((task) => (
-    <Accordion>
+    <Accordion key={task.id}>
       <AccordionSummary>
-        <Typography variant="h5">{task.title}</Typography>
-        <ExpandMore />
+        <Typography variant="h5" className={task.completed ? "tachado" : null}>{task.title}</Typography>
+
+        <Checkbox 
+          color="default"
+          onChange={() => dispatch(taskCompleted({ id: task.id, completed: task.completed }))}
+          checked={task.completed}
+        />
+
+        <IconButton onClick={() => dispatch(taskDeleted({ id: task.id }))}>
+          <Delete />
+        </IconButton>
+
+        <IconButton onClick={() => {
+          setTitle(task.title);
+          setContent(task.content);
+          setCurrentId(task.id);
+        }}>
+          <Edit />
+        </IconButton>
+
       </AccordionSummary>
       <AccordionDetails>
-        <Typography variant="h6">{task.content}</Typography>
+        <Typography variant="h6" className={task.completed ? "tachado" : null}>{task.content}</Typography>
       </AccordionDetails>
     </Accordion>
   ))
