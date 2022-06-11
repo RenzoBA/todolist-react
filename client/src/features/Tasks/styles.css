@@ -12,7 +12,11 @@
     padding: 10px;
 }
 
-.tachado{
+.tachado {
     text-decoration:line-through;
     color: rgb(162, 162, 162);
-  }
+}
+
+.contenido {
+    color: rgb(162, 162, 162);
+}

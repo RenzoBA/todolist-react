@@ -6,7 +6,7 @@ import "./styles.css";
 const Navbar = () => {
   return (
     <Container className="navbar">
-        <Typography variant="h2" className="navbar-title">ToDo List</Typography>
+        <Typography variant="h2" className="navbar-title">TEAM TODO LIST</Typography>
     </Container>
   )
 }

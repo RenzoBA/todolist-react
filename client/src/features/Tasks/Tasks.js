@@ -8,14 +8,15 @@ import {
 import { Typography, Container, Accordion, AccordionSummary, AccordionDetails, Checkbox, IconButton } from "@mui/material";
 import { Delete, Edit } from "@mui/icons-material";
 
-const Tasks = ({ setTitle, setContent, setCurrentId }) => {
+const Tasks = ({ setTitle, setContent, setOwner, setCurrentId }) => {
 
   const tasks = useSelector((state) => state.tasks);
 
   const dispatch = useDispatch();
 
   const renderTasks = tasks.map((task) => (
-    <Accordion key={task.id}>
+    <Accordion preventDefault key={task.id}>
+      
       <AccordionSummary>
         <Typography variant="h5" className={task.completed ? "tachado" : null}>{task.title}</Typography>
 
@@ -33,13 +34,17 @@ const Tasks = ({ setTitle, setContent, setCurrentId }) => {
           setTitle(task.title);
           setContent(task.content);
           setCurrentId(task.id);
+          setOwner(task.owner);
         }}>
           <Edit />
         </IconButton>
 
       </AccordionSummary>
       <AccordionDetails>
-        <Typography variant="h6" className={task.completed ? "tachado" : null}>{task.content}</Typography>
+        <Typography variant="h6" className="contenido">By:</Typography>
+        <Typography variant="h5" className={task.completed ? "tachado" : null}>{task.owner}</Typography>
+        <Typography variant="h6" className="contenido">Description:</Typography>
+        <Typography variant="h5" className={task.completed ? "tachado" : null}>{task.content}</Typography>
       </AccordionDetails>
     </Accordion>
   ))

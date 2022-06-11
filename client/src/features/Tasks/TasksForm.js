@@ -11,20 +11,22 @@ import { TextField, Button, Box } from "@mui/material";
 import "./styles.css";
 
 
-const TasksForm = ({ title, setTitle, content, setContent, currentId, setCurrentId }) => {
+const TasksForm = ({ title, setTitle, content, setContent, owner, setOwner, currentId, setCurrentId }) => {
     
     const dispatch = useDispatch()
 
     const addNewtask = () => {
-        dispatch(taskAdded({ title, content, completed: false, id: nanoid() }));
+        dispatch(taskAdded({ title, content, owner, completed: false, id: nanoid() }));
         setTitle("");
         setContent("");
+        setOwner("");
     }
 
     const updatedTask = () => {
-        dispatch(taskUpdated({ title, content, completed: false, id: currentId }))
+        dispatch(taskUpdated({ title, content, owner, completed: false, id: currentId }))
         setTitle("");
         setContent("");
+        setOwner("");
         setCurrentId("");
     }
 
@@ -34,7 +36,11 @@ const TasksForm = ({ title, setTitle, content, setContent, currentId, setCurrent
                 label="Title:"
                 value={title}
                 onChange={e => setTitle(e.target.value)}
-                fullWidth    
+            />
+            <TextField
+                label="By:"
+                value={owner}
+                onChange={e => setOwner(e.target.value)}
             />
             <br />
             <TextField 

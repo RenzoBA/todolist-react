@@ -4,6 +4,10 @@ import { Provider } from "react-redux";
 
 import store from "./app/store";
 
+import "@fontsource/nunito"
+
+import "./styles.css";
+
 import App from "./App";
 
 ReactDOM.render(
