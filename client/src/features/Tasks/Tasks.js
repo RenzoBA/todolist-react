@@ -5,52 +5,43 @@ import {
   taskDeleted,
 } from "./TasksSlice";
 
-import { Typography, Container, Accordion, AccordionSummary, AccordionDetails, Checkbox, IconButton } from "@mui/material";
-import { Delete, Edit } from "@mui/icons-material";
+import { Typography, Button, Container, Card, CardContent, ButtonGroup } from "@mui/material";
 
-const Tasks = ({ setTitle, setContent, setOwner, setCurrentId }) => {
+const Tasks = ({ setTitle, setContent, setOwner, setCurrentId}) => {
 
   const tasks = useSelector((state) => state.tasks);
 
   const dispatch = useDispatch();
 
   const renderTasks = tasks.map((task) => (
-    <Accordion preventDefault key={task.id}>
-      
-      <AccordionSummary>
-        <Typography variant="h5" className={task.completed ? "tachado" : null}>{task.title}</Typography>
 
-        <Checkbox 
-          color="default"
-          onChange={() => dispatch(taskCompleted({ id: task.id, completed: task.completed }))}
-          checked={task.completed}
-        />
-
-        <IconButton onClick={() => dispatch(taskDeleted({ id: task.id }))}>
-          <Delete />
-        </IconButton>
-
-        <IconButton onClick={() => {
-          setTitle(task.title);
-          setContent(task.content);
-          setCurrentId(task.id);
-          setOwner(task.owner);
-        }}>
-          <Edit />
-        </IconButton>
-
-      </AccordionSummary>
-      <AccordionDetails>
-        <Typography variant="h6" className="contenido">By:</Typography>
-        <Typography variant="h5" className={task.completed ? "tachado" : null}>{task.owner}</Typography>
-        <Typography variant="h6" className="contenido">Description:</Typography>
-        <Typography variant="h5" className={task.completed ? "tachado" : null}>{task.content}</Typography>
-      </AccordionDetails>
-    </Accordion>
+    <Card sx={{ minWidth: 350}} key={task.id}>
+      <CardContent>
+        <Typography sx={{ fontSize: 14 }} color="text.secondary">{task.owner}</Typography>
+        <Typography variant="h5" component="div">{task.title}</Typography>
+        {(task.completed) ?
+        <Typography sx={{ mb: 3.5, width: 74, pl: 1, fontSize: 15, color: "white", borderRadius: 50, background: "#aed581" }}>Complete</Typography> :
+        <Typography sx={{ mb: 3.5, fontSize: 15 }} color="text.secondary">
+          {task.date}
+        </Typography>
+        }
+        <Typography variant="body2">{task.content}</Typography>
+        <ButtonGroup variant="text" sx={{ mt: 2, display: "flex", justifyContent: "center"}}>
+          <Button sx={{fontSize: 13}} onClick={() => dispatch(taskCompleted({ id: task.id, completed: task.completed }))}>{task.completed ? "INCOMPLETE" : "COMPLETE"}</Button>
+          <Button sx={{fontSize: 13}} onClick={() => {
+            setTitle(task.title);
+            setContent(task.content);
+            setCurrentId(task.id);
+            setOwner(task.owner);
+          }}>EDIT</Button>
+          <Button sx={{fontSize: 13}} onClick={() => dispatch(taskDeleted({ id: task.id }))}>DELETE</Button>
+        </ButtonGroup>
+      </CardContent>
+    </Card>
   ))
 
   return (
-    <Container>
+    <Container sx={{ display: "flex", gap: 5 }}>
       {renderTasks}
     </Container>
   )

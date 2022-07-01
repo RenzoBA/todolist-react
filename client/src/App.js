@@ -14,13 +14,13 @@ const App = () => {
 
   const [ title, setTitle ] = React.useState("");
   const [ content, setContent ] = React.useState("");
-  const [ currentId, setCurrentId ] = React.useState("");
   const [ owner, setOwner ] = React.useState("");
+  const [ currentId, setCurrentId ] = React.useState("");
 
   return (
     <Container>
       <Navbar />
-      <Typography variant="h5">New Task:</Typography>
+      <Typography variant="h6" sx={{fontFamily: "Nunito"}}>New Task:</Typography>
       <TasksForm 
         title={title}
         setTitle={setTitle}
@@ -31,7 +31,7 @@ const App = () => {
         owner={owner}
         setOwner={setOwner}
       />
-      <Typography variant="h3" className="title">Tasks ({tasks.length}):</Typography>
+      <Typography variant="h4" sx={{fontFamily: "Nunito"}} className="title">Tasks ({tasks.length}):</Typography>
       <Tasks 
         setTitle={setTitle}
         setContent={setContent}

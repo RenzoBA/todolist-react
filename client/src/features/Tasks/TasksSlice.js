@@ -7,14 +7,16 @@ const tasksSlice = createSlice({
             id: "1",
             title: "Welcome!",
             content: "Here you can save some of your tasks :)",
-            owner: "team",
+            owner: "Team",
+            date: "-",
             completed: false,
         },
         {
             id: "2",
             title: "Other Task",
             content: "Description of your task",
-            owner: "team",
+            owner: "Team",
+            date: "-",
             completed: false,
         },],
     reducers: {
@@ -36,13 +38,14 @@ const tasksSlice = createSlice({
         },
 
         taskUpdated: (state, action) => {
-            const { title, content, owner, id } = action.payload;
+            const { title, content, owner, date, id } = action.payload;
             const existingTask = state.find((task) => task.id === id);
             if (existingTask) {
                 existingTask.title = title;
                 existingTask.content = content;
                 existingTask.owner = owner;
                 existingTask.completed = false;
+                existingTask.date = date;
             }
         }
     }

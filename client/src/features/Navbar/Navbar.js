@@ -6,7 +6,7 @@ import "./styles.css";
 const Navbar = () => {
   return (
     <Container className="navbar">
-        <Typography variant="h2" className="navbar-title">TEAM TODO LIST</Typography>
+        <Typography variant="h2" sx={{fontFamily: "Nunito", mb: 6}} className="navbar-title">TEAM TODO LIST</Typography>
     </Container>
   )
 }
