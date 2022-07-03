@@ -7,6 +7,8 @@ import {
 
 import { Typography, Button, Container, Card, CardContent, ButtonGroup } from "@mui/material";
 
+import "./styles.css";
+
 const Tasks = ({ setTitle, setContent, setOwner, setCurrentId}) => {
 
   const tasks = useSelector((state) => state.tasks);
@@ -15,7 +17,7 @@ const Tasks = ({ setTitle, setContent, setOwner, setCurrentId}) => {
 
   const renderTasks = tasks.map((task) => (
 
-    <Card sx={{ minWidth: 350}} key={task.id}>
+    <Card sx={{ width: 300, bgcolor: "#F0F0F0"}} key={task.id}>
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary">{task.owner}</Typography>
         <Typography variant="h5" component="div">{task.title}</Typography>
@@ -41,8 +43,11 @@ const Tasks = ({ setTitle, setContent, setOwner, setCurrentId}) => {
   ))
 
   return (
-    <Container sx={{ display: "flex", gap: 5 }}>
-      {renderTasks}
+    <Container sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+      <Typography variant="h4" sx={{fontFamily: "Nunito"}}>Tasks ({tasks.length}):</Typography>
+      <Container className="taskes" sx={{ display: "grid"}}>
+        {renderTasks}
+      </Container>
     </Container>
   )
 }

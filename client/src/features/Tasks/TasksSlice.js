@@ -13,12 +13,20 @@ const tasksSlice = createSlice({
         },
         {
             id: "2",
-            title: "Other Task",
+            title: "Task 1",
             content: "Description of your task",
             owner: "Team",
             date: "-",
             completed: false,
-        },],
+        },
+        {
+            id: "3",
+            title: "Task 2",
+            content: "Description of your task",
+            owner: "Team",
+            date: "-",
+            completed: false,
+        }],
     reducers: {
         taskAdded: (state, action) => {
             state.push(action.payload)
